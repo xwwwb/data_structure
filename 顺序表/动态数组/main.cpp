@@ -1,13 +1,24 @@
 #include "MyArray.h"
-
+#include <string>
 int main()
 {
   MyArray<int> arr;
-  arr.travel();
-  for (int i = 0; i < 20; i++)
+  MyArray<double> darr;
+  MyArray<string> sarr;
+  for (int i = 0; i < 10; i++)
   {
     arr.push(i);
     arr.travel();
+  }
+  for (int i = 0; i < 10; i++)
+  {
+    darr.push(i + 0.1);
+    darr.travel();
+  }
+  for (int i = 0; i < 10; i++)
+  {
+    sarr.push(to_string(i));
+    sarr.travel();
   }
   return 0;
 }

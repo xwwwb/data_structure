@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
-using std::cout;
-using std::endl;
+#include <string>
+using namespace std;
 
 template <class T>
 class MyArray
