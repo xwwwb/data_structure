@@ -7,17 +7,17 @@ int main()
   MyArray<string> sarr;
   for (int i = 0; i < 10; i++)
   {
-    arr.push(i);
+    arr.push_back(i);
     arr.travel();
   }
   for (int i = 0; i < 10; i++)
   {
-    darr.push(i + 0.1);
+    darr.push_back(i + 0.1);
     darr.travel();
   }
   for (int i = 0; i < 10; i++)
   {
-    sarr.push(to_string(i));
+    sarr.push_front(to_string(i));
     sarr.travel();
   }
   return 0;

@@ -25,7 +25,8 @@ public:
   // 拷贝构造
   MyArray(const MyArray &a);
   // 成员函数
-  void push(T data);
+  void push_back(T data);
+  void push_front(T data);
   void travel();
 
 private:
@@ -56,7 +57,7 @@ MyArray<T>::MyArray(const MyArray<T> &a)
 }
 
 template <class T>
-void MyArray<T>::push(T data)
+void MyArray<T>::push_back(T data)
 {
   // 判断是否需要开空间
   if (size >= capacity)
@@ -78,6 +79,45 @@ void MyArray<T>::push(T data)
     pArr = pNew;
   }
   pArr[size++] = data;
+}
+
+template <class T>
+void MyArray<T>::push_front(T data)
+{
+  if (size >= capacity)
+  {
+    capacity = capacity +
+               (((capacity >> 1) > 1)
+                    ? (capacity >> 1)
+                    : 1);
+    T *pNew = new T[capacity];
+    if (pArr)
+    {
+      memcpy(pNew + 1, pArr, sizeof(T) * size);
+      delete[] pArr;
+    }
+    pArr = pNew;
+    pArr[0] = data;
+    size++;
+  }
+  else
+  {
+    // 挪一下数据
+    // 从后往前挪
+
+    // for (int i = size - 1; i >= 0; i--)
+    // {
+    //   pArr[i + 1] = pArr[i];
+    // }
+
+    T *pTemp = new T[size];
+    memcpy(pTemp, pArr, sizeof(T) * size);
+    memcpy(pArr + 1, pTemp, sizeof(T) * size);
+    delete[] pTemp;
+
+    pArr[0] = data;
+    size++;
+  }
 }
 
 template <class T>
