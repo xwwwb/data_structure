@@ -2,3 +2,4 @@
 .vscode
 CMakeBuild
 .DS_Store
+vscodeDebugger
