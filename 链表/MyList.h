@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+// 无头单链表
 template <class T>
 class MyList
 {
