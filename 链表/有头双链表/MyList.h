@@ -11,20 +11,22 @@ class MyList
   public:
     T data;
     Node *pNext;
+    Node *pPrev;
     Node()
     {
-      pNext = NULL;
+      pNext = pPrev = NULL;
     }
     Node(const T &data)
     {
       this->data = data;
-      pNext = NULL;
+      pNext = pPrev = NULL;
     }
     // 拷贝构造
     Node(const Node &n)
     {
       this->data = n.data;
       this->pNext = n.pNext;
+      this->pPrev = n.pPrev;
     }
     ~Node()
     {
@@ -40,7 +42,7 @@ public:
   // 构造函数
   MyList()
   {
-    pHead = NULL;
+    pHead = new Node(-999);
   }
   // 析构函数
   ~MyList()
@@ -64,7 +66,7 @@ public:
   // 遍历节点
   void travel()
   {
-    _travel(pHead);
+    _travel(pHead->pNext);
   }
 
 private:
@@ -86,8 +88,13 @@ template <class T>
 void MyList<T>::push_front(const T &insertData)
 {
   Node *pNew = new Node(insertData);
-  pNew->pNext = pHead;
-  pHead = pNew;
+  if (this->pHead->pNext)
+  {
+    pHead->pNext->pPrev = pNew;
+    pNew->pNext = pHead->pNext;
+  }
+  pNew->pPrev = pHead;
+  pHead->pNext = pNew;
 }
 
 template <class T>
@@ -135,6 +142,7 @@ template <class T>
 void MyList<T>::_travel(Node *pTemp)
 {
   cout << "list:";
+  // pTemp = pTemp->pNext;
   while (NULL != pTemp)
   {
     cout << pTemp->data << " ";
@@ -204,7 +212,7 @@ void MyList<T>::clear(size_t pos)
   if (NULL == pDel)
     return;
 
-  Node *pDelPret = _pos2ptr(pHead, pos - 1);
-  pDelPret->pNext = pDel->pNext;
+  Node *pDelPrev = _pos2ptr(pHead, pos - 1);
+  pDelPrev->pNext = pDel->pNext;
   delete pDel;
 }
